@@ -1298,38 +1298,48 @@
     <p class="footer-love">Made with ❤️ for Education Excellence</p>
   </footer>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-  // Admin credentials (hardcoded untuk demo)
+  // ====== INIT SUPABASE ======
+  const SUPABASE_URL = "https://qxxloieonwmipjgvfdks.supabase.co";
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4eGxvaWVvbndtaXBqZ3ZmZGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzNzYxMjcsImV4cCI6MjA3ODk1MjEyN30.sduqPQriseSAYuP2wInujl0lXTWHbnBEev_SehArNMM";
+
+  const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // ====== ADMIN LOGIN ======
   const ADMIN_USERNAME = 'HeniImuy';
   const ADMIN_PASSWORD = 'Heni123';
 
-const ADMIN2_USERNAME = 'PakDodi';
+  const ADMIN2_USERNAME = 'PakDodi';
   const ADMIN2_PASSWORD = 'Dodi123';
 
-
-  let infos = [];
   let isAdmin = false;
+  let infos = [];
 
-  // SHOW ADMIN LOGIN MODAL
+
+  // ====== SHOW ADMIN LOGIN ======
   function showAdminLogin() {
     document.getElementById('authModal').classList.remove('hidden');
   }
 
-  // CLOSE ADMIN LOGIN MODAL
   function closeAdminLogin() {
     document.getElementById('authModal').classList.add('hidden');
     document.getElementById('logUsername').value = '';
     document.getElementById('logPassword').value = '';
   }
 
-  // LOGIN AS ADMIN
+
+  // ====== LOGIN FUNCTION ======
   function login(e) {
     e.preventDefault();
     const username = document.getElementById('logUsername').value;
     const password = document.getElementById('logPassword').value;
 
-    if (username === ADMIN_USERNAME, ADMIN2_USERNAME && password === ADMIN_PASSWORD, ADMIN2_PASSWORD) {
+    if (
+      (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) ||
+      (username === ADMIN2_USERNAME && password === ADMIN2_PASSWORD)
+    ) {
       isAdmin = true;
       closeAdminLogin();
       updateUIForAdmin();
@@ -1339,137 +1349,130 @@ const ADMIN2_USERNAME = 'PakDodi';
     }
   }
 
-  // UPDATE UI FOR ADMIN
-  function updateUIForAdmin() {
-    document.getElementById('userBadge').classList.remove('hidden');
-    document.getElementById('adminLoginBtn').classList.add('hidden');
-    document.getElementById('logoutBtn').classList.remove('hidden');
-    document.getElementById('adminSection').classList.remove('hidden');
-    renderInfo();
-  }
 
-  // UPDATE UI FOR GUEST
-  function updateUIForGuest() {
-    document.getElementById('userBadge').classList.add('hidden');
-    document.getElementById('adminLoginBtn').classList.remove('hidden');
-    document.getElementById('logoutBtn').classList.add('hidden');
-    document.getElementById('adminSection').classList.add('hidden');
-    renderInfo();
-  }
+  // ====== LOAD DATA ======
+  async function loadInfos() {
+    let { data, error } = await db
+      .from("infos")
+      .select("*")
+      .order("id", { ascending: false });
 
-  // LOGOUT
-  function logout() {
-    if (confirm('Yakin ingin logout?')) {
-      isAdmin = false;
-      updateUIForGuest();
-      alert('✅ Logout berhasil!');
-    }
-  }
-
-  // SAVE INFO
-  function saveInfo(e) {
-    e.preventDefault();
-    if (!isAdmin) {
-      alert('❌ Hanya admin yang bisa mengelola informasi!');
+    if (error) {
+      console.error("Error fetch:", error);
       return;
     }
 
-    const id = document.getElementById('infoId').value;
-    const judul = document.getElementById('judul').value;
-    const deskripsi = document.getElementById('deskripsi').value;
-
-    if (id) {
-      const index = infos.findIndex(i => i.id == id);
-      infos[index] = { id, judul, deskripsi };
-    } else {
-      const newInfo = {
-        id: Date.now(),
-        judul,
-        deskripsi
-      };
-      infos.push(newInfo);
-    }
-
-    document.getElementById('infoId').value = '';
-    e.target.reset();
+    infos = data;
     renderInfo();
-    alert('✅ Informasi berhasil disimpan!');
   }
 
-  // RENDER INFO
-function renderInfo() {
-  const list = document.getElementById('infoList');
-  list.innerHTML = '';
 
-  if (infos.length === 0) {
-    // kosong → tetap pakai flex agar ketengah
-    list.style.display = "flex";
-    list.style.justifyContent = "center";
+  // ====== SAVE INFO ======
+ async function saveInfo(e) {
+  e.preventDefault();
 
-    list.innerHTML = `
-      <div class="empty-state">
-        <p>Belum ada informasi yang tersedia</p>
-      </div>
-    `;
+  if (!isAdmin) {
+    alert("❌ Hanya admin yang bisa menambah/mengedit.");
     return;
   }
 
-  // ada data → bebasin kembali (biar layout normal)
-  list.style.display = "";
-  list.style.justifyContent = "";
+  const id = document.getElementById("infoId").value;
+  const judul = document.getElementById("judul").value;
+  const deskripsi = document.getElementById("deskripsi").value;
 
-  infos.forEach(info => {
-    const div = document.createElement('div');
-    div.classList.add('info-card');
-    div.innerHTML = `
-      <h4>${info.judul}</h4>
-      <p>${info.deskripsi}</p>
-      ${isAdmin ? `
-      <div class="actions">
-        <button class="btn btn-edit" onclick="editInfo(${info.id})">✏️ Edit</button>
-        <button class="btn btn-delete" onclick="deleteInfo(${info.id})">🗑️ Hapus</button>
-      </div>` : ''}
-    `;
-    list.appendChild(div);
-  });
+  let result;
+  if (id) {
+    result = await db.from("infos").update({ judul, deskripsi }).eq("id", id);
+  } else {
+    result = await db.from("infos").insert([{ judul, deskripsi }]);
+  }
+
+  if (result.error) {
+    console.error("Insert/Update error:", result.error);
+    alert("❌ Gagal menyimpan: " + result.error.message);
+    return;
+  }
+
+  document.getElementById("infoId").value = "";
+  e.target.reset();
+  loadInfos();
+
+  alert("✅ Informasi berhasil disimpan!");
 }
 
-  // EDIT INFO
-  function editInfo(id) {
+
+  // ====== DELETE INFO ======
+  async function deleteInfo(id) {
     if (!isAdmin) return;
-    
+    if (!confirm("Yakin hapus?")) return;
+
+    await db.from("infos").delete().eq("id", id);
+
+    loadInfos();
+    alert("✅ Dihapus!");
+  }
+
+
+  // ====== RENDER LIST ======
+  function renderInfo() {
+    const list = document.getElementById('infoList');
+    list.innerHTML = '';
+
+    if (infos.length === 0) {
+      list.style.display = "flex";
+      list.style.justifyContent = "center";
+      list.innerHTML = `<div class="empty-state"><p>Belum ada informasi</p></div>`;
+      return;
+    }
+
+    list.style.display = "";
+    list.style.justifyContent = "";
+
+    infos.forEach(info => {
+      const div = document.createElement('div');
+      div.classList.add('info-card');
+      div.innerHTML = `
+        <h4>${info.judul}</h4>
+        <p>${info.deskripsi}</p>
+        ${isAdmin ? `
+          <div class="actions">
+            <button class="btn btn-edit" onclick="editInfo(${info.id})">✏️ Edit</button>
+            <button class="btn btn-delete" onclick="deleteInfo(${info.id})">🗑️ Hapus</button>
+          </div>` : ''}
+      `;
+      list.appendChild(div);
+    });
+  }
+
+
+  // ====== EDIT INFO ======
+  function editInfo(id) {
     const info = infos.find(i => i.id == id);
+
     document.getElementById('infoId').value = info.id;
     document.getElementById('judul').value = info.judul;
     document.getElementById('deskripsi').value = info.deskripsi;
-    
-    document.querySelector('.admin-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    document.querySelector('.admin-form').scrollIntoView({ behavior: 'smooth' });
   }
 
-  // DELETE INFO
-  function deleteInfo(id) {
-    if (!isAdmin) return;
-    
-    if (!confirm('⚠️ Yakin ingin menghapus informasi ini?')) return;
-    infos = infos.filter(i => i.id != id);
-    renderInfo();
-    alert('✅ Informasi berhasil dihapus!');
+
+  // ====== UI ADMIN ======
+  function updateUIForAdmin() {
+    document.getElementById('adminSection').classList.remove('hidden');
+    loadInfos();
   }
 
-  // SMOOTH SCROLL FOR NAVIGATION
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
+  function updateUIForGuest() {
+    document.getElementById('adminSection').classList.add('hidden');
+    loadInfos();
+  }
 
-  // INIT - Load as guest, render info
-  renderInfo();
+  // INIT
+  loadInfos();
+
 </script>
+
 
 </body>
 </html>
