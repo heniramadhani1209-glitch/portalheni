@@ -5,16 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portal SMA Negeri 1 Dramaga</title>
 <style>
-  * {margin: 0; padding: 0; box-sizing: border-box;}
-  
-  body {
+/* --- GLOBAL RESET & BASE STYLES --- */
+* {margin: 0; padding: 0; box-sizing: border-box;}
+
+body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #0f172a;
     min-height: 100vh;
     overflow-x: hidden;
-  }
+    padding-top: 70px; /* Tambahkan padding ini agar konten tidak tertutup header fixed */
+}
 
-  /* Animated Background */
+/* Animated Background */
 .bg-animation {
     position: fixed;
     width: 100%;
@@ -22,23 +24,17 @@
     top: 0;
     left: 0;
     z-index: -1;
-    /* --- Perubahan Warna: Fokus Biru Elegan Saja --- */
     background: linear-gradient(135deg, #ffffff 0%, #6495ED 50%, #4169E1 100%);
-    /* - #4682B4: Steel Blue (Biru Baja, dalam)
-        - #6495ED: Cornflower Blue (Biru Bunga Jagung, cerah lembut)
-        - #4169E1: Royal Blue (Biru Kerajaan, kuat)
-    */
-    /* ------------------------------------------------ */
     background-size: 400% 400%;
     animation: gradientShift 15s ease infinite;
 }
-  @keyframes gradientShift {
+@keyframes gradientShift {
     0% {background-position: 0% 50%;}
     50% {background-position: 100% 50%;}
     100% {background-position: 0% 50%;}
-  }
+}
 
-  .bg-animation::before {
+.bg-animation::before {
     content: '';
     position: absolute;
     width: 200%;
@@ -46,15 +42,15 @@
     background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
     background-size: 50px 50px;
     animation: movePattern 20s linear infinite;
-  }
+}
 
-  @keyframes movePattern {
+@keyframes movePattern {
     0% {transform: translate(0, 0);}
     100% {transform: translate(50px, 50px);}
-  }
+}
 
-  /* Auth Modal */
-  .auth-modal {
+/* Auth Modal (Gaya tidak diubah) */
+.auth-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -67,9 +63,9 @@
     justify-content: center;
     z-index: 2000;
     padding: 20px;
-  }
-
-  .auth-container {
+}
+/* ... (Gaya Auth Modal lainnya) ... */
+.auth-container {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
     padding: 50px 40px;
@@ -78,14 +74,14 @@
     max-width: 450px;
     width: 100%;
     animation: slideUp 0.6s ease;
-  }
+}
 
-  @keyframes slideUp {
+@keyframes slideUp {
     from {opacity: 0; transform: translateY(30px);}
     to {opacity: 1; transform: translateY(0);}
-  }
+}
 
-  .auth-logo {
+.auth-logo {
     width: 80px;
     height: 80px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -97,61 +93,61 @@
     margin: 0 auto 20px;
     box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
     animation: float 3s ease-in-out infinite;
-  }
+}
 
-  @keyframes float {
+@keyframes float {
     0%, 100% {transform: translateY(0);}
     50% {transform: translateY(-10px);}
-  }
+}
 
-  .auth-header h2 {
+.auth-header h2 {
     color: #1e293b;
     margin-bottom: 10px;
     font-size: 32px;
     text-align: center;
-  }
+}
 
-  .auth-header p {
+.auth-header p {
     color: #64748b;
     font-size: 14px;
     text-align: center;
-  }
+}
 
-  form {
+form {
     display: flex;
     flex-direction: column;
     gap: 20px;
     margin-top: 30px;
-  }
+}
 
-  .form-group {
+.form-group {
     display: flex;
     flex-direction: column;
     gap: 8px;
-  }
+}
 
-  label {
+label {
     font-weight: 600;
     color: #334155;
     font-size: 14px;
-  }
+}
 
-  input, select, textarea {
+input, select, textarea {
     padding: 14px 18px;
     border-radius: 12px;
     border: 2px solid #e2e8f0;
     font-size: 15px;
     transition: all 0.3s;
     background: white;
-  }
+}
 
-  input:focus, select:focus, textarea:focus {
+input:focus, select:focus, textarea:focus {
     outline: none;
     border-color: #667eea;
     box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-  }
+}
 
-  button[type="submit"] {
+button[type="submit"] {
     padding: 14px;
     border: none;
     border-radius: 12px;
@@ -162,163 +158,290 @@
     font-size: 16px;
     transition: all 0.3s;
     margin-top: 10px;
-  }
+}
 
-  button[type="submit"]:hover {
+button[type="submit"]:hover {
     transform: translateY(-2px);
     box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
-  }
+}
 
-  .auth-footer {
+.auth-footer {
     text-align: center;
     margin-top: 25px;
     color: #64748b;
     font-size: 14px;
-  }
+}
 
-  .auth-footer a {
+.auth-footer a {
     color: #667eea;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s;
     cursor: pointer;
-  }
+}
 
-  .auth-footer a:hover {
+.auth-footer a:hover {
     color: #764ba2;
-  }
+}
 
-  /* Main Dashboard */
-  .main-wrapper {
-    background: transparent;
-  }
 
-  /* Floating Header */
-  .floating-header {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    padding: 15px 30px;
-    border-radius: 50px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+/* --- FLOATING HEADER (RESPONSIVE) --- */
+.floating-header {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    
     display: flex;
     align-items: center;
-    gap: 30px;
-    z-index: 1000;
-    animation: slideDown 0.6s ease;
-  }
+    justify-content: space-between;
+    
+    padding: 10px 5%; 
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; 
+    font-family: 'Roboto', Arial, sans-serif;
+    min-height: 60px; /* Tinggi minimum yang konsisten */
+}
 
-  @keyframes slideDown {
-    from {opacity: 0; transform: translateX(-50%) translateY(-20px);}
-    to {opacity: 1; transform: translateX(-50%) translateY(0);}
-  }
+/* Logo/Gambar */
+.floating-header img {
+    height: 40px; 
+    width: auto;
+    margin-right: 15px; 
+}
 
-  .header-logo {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-  }
+/* Tombol Hamburger (Hanya terlihat di Mobile) */
+.menu-toggle {
+    display: none; /* Default tersembunyi */
+    font-size: 1.5em;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #1e293b;
+    margin-left: 15px;
+    order: 3; /* Posisikan dekat User Section di mobile */
+}
 
-  .nav-menu {
+/* Nav Menu (Desktop/Tablet) */
+.nav-menu {
     display: flex;
     gap: 25px;
-    list-style: none;
-  }
+    list-style: none; /* Jika di HTML-nya <ul>, ini berlaku */
+    flex-grow: 1; /* Biarkan menu mengisi ruang di tengah */
+    justify-content: center; /* Posisikan tautan di tengah header */
+    margin: 0 30px;
+}
 
-  .nav-menu a {
+.nav-menu a {
     color: #1e293b;
     text-decoration: none;
     font-weight: 600;
     font-size: 14px;
     transition: color 0.3s;
     position: relative;
-  }
+    padding: 10px 0;
+    display: block; /* Agar padding vertikal bekerja */
+}
 
-  .nav-menu a::after {
+.nav-menu a::after {
     content: '';
     position: absolute;
-    bottom: -5px;
+    bottom: 0px; /* Sesuaikan posisi garis bawah */
     left: 0;
     width: 0;
     height: 2px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     transition: width 0.3s;
-  }
+}
 
-  .nav-menu a:hover {
+.nav-menu a:hover {
     color: #667eea;
-  }
+}
 
-  .nav-menu a:hover::after {
+.nav-menu a:hover::after {
     width: 100%;
-  }
+}
 
-  .user-section {
+/* User Section */
+.user-section {
     display: flex;
     align-items: center;
     gap: 15px;
     padding-left: 20px;
     border-left: 2px solid #e2e8f0;
-  }
+    flex-shrink: 0; /* Pastikan ini tidak menyusut */
+}
 
-  .user-badge {
+.user-badge {
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     color: white;
     padding: 6px 15px;
     border-radius: 20px;
     font-size: 12px;
     font-weight: 600;
-  }
+}
 
-  .admin-btn {
+.admin-btn, .logout-btn {
     padding: 8px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.3s;
+    
+    /* Hapus posisi absolut yang tidak perlu, biarkan flexbox yang mengatur */
+    opacity: 1; 
+    position: static; 
+}
+
+.admin-btn {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 13px;
-    transition: all 0.3s;
+}
 
-      opacity: 0;
-  position: absolute; /* biar posisinya tetap di tempat semula */
-  right: 20px; /* atur posisi sesuai kebutuhan */
-  top: 15px;   /* contoh posisi di kanan atas */
-  }
-
-  .admin-btn:hover {
+.admin-btn:hover {
     transform: scale(1.05);
     box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-  }
+}
 
-  .logout-btn {
-    padding: 8px 20px;
+.logout-btn {
     background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
     color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 13px;
-    transition: all 0.3s;
-  }
+}
 
-  .logout-btn:hover {
+.logout-btn:hover {
     transform: scale(1.05);
     box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
-  }
+}
 
-  /* Hero Section */
-  .hero-section {
+/* --- MOBILE LAYOUT (max-width: 768px) --- */
+@media (max-width: 767px) {
+    /* Header Mobile: Fokus pada Logo, Hamburger, dan Tombol User */
+    .floating-header {
+        flex-wrap: nowrap; /* Jangan memecah ke baris baru */
+        justify-content: space-between;
+        padding: 10px 5%;
+    }
+    
+    .menu-toggle {
+        display: block; /* Tampilkan tombol hamburger */
+    }
+    
+    /* Sembunyikan navigasi default di mobile */
+    .nav-menu {
+        display: none; 
+        position: absolute;
+        top: 60px; /* Tempatkan di bawah header */
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background-color: #ffffff;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        z-index: 990;
+        margin: 0; /* Hapus margin tengah */
+        padding: 10px 0;
+    }
+
+    /* Kelas yang harus ditambahkan dengan JavaScript saat menu dibuka */
+    .nav-menu.open {
+        display: flex;
+    }
+
+    .nav-menu a {
+        padding: 12px 5%;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .nav-menu a:last-child {
+        border-bottom: none;
+    }
+
+    /* Pindahkan user section ke samping di mobile jika memungkinkan */
+    .user-section {
+        padding-left: 10px;
+        border-left: none; /* Hapus garis pemisah */
+        gap: 8px;
+    }
+    
+    /* Tombol Admin/Logout lebih kecil di mobile */
+    .admin-btn, .logout-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    
+    /* Tata letak konten mobile di media query Anda */
+    .hero-title {
+        font-size: 42px;
+    }
+
+    .hero-subtitle {
+        font-size: 18px;
+    }
+
+    .section-title {
+        font-size: 36px;
+    }
+
+    .two-column, .three-column {
+        grid-template-columns: 1fr;
+    }
+
+    .content-box {
+        padding: 30px;
+    }
+
+    .info-grid, .contact-grid, .feature-list {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .btn-primary, .btn-secondary {
+        width: 100%;
+    }
+    
+    /* Mobile Visi Misi */
+    #visi-misi {
+        padding: 40px 5vw;
+    }
+
+    #visi-misi-flex-wrapper {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .nilai-list {
+        grid-template-columns: 1fr;
+    }
+
+    .nilai-list::before {
+        font-size: 1.5em;
+        margin-bottom: 25px;
+    }
+}
+/* ... (lanjutkan gaya lainnya di luar media query) ... */
+
+
+/* Main Dashboard */
+.main-wrapper {
+    background: transparent;
+}
+
+@keyframes slideDown {
+    from {opacity: 0; transform: translateX(-50%) translateY(-20px);}
+    to {opacity: 1; transform: translateX(-50%) translateY(0);}
+}
+
+/* Header Logo (Jika menggunakan div/ikon) - Dihapus karena Anda menggunakan img */
+/* .header-logo { ... } */
+
+
+/* Hero Section */
+.hero-section {
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -326,19 +449,19 @@
     text-align: center;
     padding: 120px 20px 60px;
     position: relative;
-  }
+}
 
-  .hero-content {
+.hero-content {
     max-width: 900px;
     animation: fadeIn 1s ease;
-  }
+}
 
-  @keyframes fadeIn {
+@keyframes fadeIn {
     from {opacity: 0;}
     to {opacity: 1;}
-  }
+}
 
-  .hero-badge {
+.hero-badge {
     display: inline-block;
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
@@ -349,32 +472,32 @@
     font-weight: 600;
     margin-bottom: 30px;
     border: 2px solid rgba(255, 255, 255, 0.3);
-  }
+}
 
-  .hero-title {
+.hero-title {
     font-size: 72px;
     font-weight: 800;
     color: white;
     margin-bottom: 20px;
     line-height: 1.2;
     text-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  }
+}
 
-  .hero-subtitle {
+.hero-subtitle {
     font-size: 24px;
     color: rgba(255, 255, 255, 0.95);
     margin-bottom: 40px;
     line-height: 1.6;
-  }
+}
 
-  .hero-buttons {
+.hero-buttons {
     display: flex;
     gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
-  }
+}
 
-  .btn-primary, .btn-secondary {
+.btn-primary, .btn-secondary {
     padding: 16px 40px;
     border-radius: 30px;
     font-weight: 600;
@@ -382,32 +505,32 @@
     cursor: pointer;
     transition: all 0.3s;
     border: none;
-  }
+}
 
-  .btn-primary {
+.btn-primary {
     background: white;
     color: #667eea;
-  }
+}
 
-  .btn-primary:hover {
+.btn-primary:hover {
     transform: translateY(-3px);
     box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
-  }
+}
 
-  .btn-secondary {
+.btn-secondary {
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
     color: white;
     border: 2px solid rgba(255, 255, 255, 0.3);
-  }
+}
 
-  .btn-secondary:hover {
+.btn-secondary:hover {
     background: rgba(255, 255, 255, 0.3);
     transform: translateY(-3px);
-  }
+}
 
-  /* Scroll Indicator */
-  .scroll-indicator {
+/* Scroll Indicator */
+.scroll-indicator {
     position: absolute;
     bottom: 40px;
     left: 50%;
@@ -419,45 +542,45 @@
     display: flex;
     justify-content: center;
     padding-top: 8px;
-  }
+}
 
-  .scroll-indicator::before {
+.scroll-indicator::before {
     content: '';
     width: 4px;
     height: 8px;
     background: white;
     border-radius: 2px;
     animation: scrollDown 2s ease infinite;
-  }
+}
 
-  @keyframes scrollDown {
+@keyframes scrollDown {
     0% {transform: translateY(0); opacity: 1;}
     100% {transform: translateY(20px); opacity: 0;}
-  }
+}
 
-  /* Content Sections */
-  .content-wrapper {
+/* Content Sections */
+.content-wrapper {
     max-width: 1400px;
     margin: 0 auto;
     padding: 80px 20px;
-  }
+}
 
-  .section {
+.section {
     margin-bottom: 120px;
     animation: fadeInUp 0.8s ease;
-  }
+}
 
-  @keyframes fadeInUp {
+@keyframes fadeInUp {
     from {opacity: 0; transform: translateY(30px);}
     to {opacity: 1; transform: translateY(0);}
-  }
+}
 
-  .section-header {
+.section-header {
     text-align: center;
     margin-bottom: 60px;
-  }
+}
 
-  .section-badge {
+.section-badge {
     display: inline-block;
     background: rgba(102, 126, 234, 0.1);
     color: #667eea;
@@ -466,120 +589,120 @@
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 15px;
-  }
+}
 
-  .section-title {
+.section-title {
     font-size: 48px;
     font-weight: 800;
     color: white;
     margin-bottom: 15px;
-  }
+}
 
-  .section-subtitle {
+.section-subtitle {
     font-size: 18px;
     color: rgba(255, 255, 255, 0.8);
     max-width: 600px;
     margin: 0 auto;
-  }
+}
 
-  /* Content Box */
-  .content-box {
+/* Content Box */
+.content-box {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
     border-radius: 24px;
     padding: 50px;
     margin-bottom: 30px;
     border: 2px solid rgba(255, 255, 255, 0.2);
-  }
+}
 
-  .content-box h3 {
+.content-box h3 {
     font-size: 32px;
     color: #1e293b;
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 15px;
-  }
+}
 
-  .content-box p, .content-box li {
+.content-box p, .content-box li {
     font-size: 18px;
     color: #64748b;
     line-height: 1.8;
     margin-bottom: 15px;
-  }
+}
 
-  .content-box ul {
+.content-box ul {
     list-style: none;
     padding-left: 0;
-  }
+}
 
-  .content-box li {
+.content-box li {
     padding-left: 30px;
     position: relative;
-  }
+}
 
-  .content-box li::before {
+.content-box li::before {
     content: '✓';
     position: absolute;
     left: 0;
     color: #667eea;
     font-weight: bold;
     font-size: 20px;
-  }
+}
 
-  /* Two Column Layout */
-  .two-column {
+/* Two Column Layout */
+.two-column {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
-  }
+}
 
-  .three-column {
+.three-column {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
-  }
+}
 
-  /* Feature List */
-  .feature-list {
+/* Feature List */
+.feature-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     margin-top: 30px;
-  }
+}
 
-  .feature-item {
+.feature-item {
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
     padding: 25px;
     border-radius: 16px;
     border-left: 4px solid #667eea;
-  }
+}
 
-  .feature-item h4 {
+.feature-item h4 {
     font-size: 20px;
     color: #1e293b;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
     gap: 10px;
-  }
+}
 
-  .feature-item p {
+.feature-item p {
     font-size: 16px;
     color: #64748b;
     line-height: 1.6;
     margin: 0;
-  }
+}
 
-  /* Stats Grid */
-  .stats-grid {
+/* Stats Grid */
+.stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 30px;
     margin-top: 40px;
-  }
+}
 
-  .stat-box {
+.stat-box {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
     border: 2px solid rgba(255, 255, 255, 0.2);
@@ -587,90 +710,90 @@
     padding: 35px;
     text-align: center;
     transition: all 0.3s;
-  }
+}
 
-  .stat-box:hover {
+.stat-box:hover {
     transform: scale(1.05);
     background: rgba(255, 255, 255, 0.15);
-  }
+}
 
-  .stat-number {
+.stat-number {
     font-size: 48px;
     font-weight: 800;
     color: white;
     margin-bottom: 10px;
-  }
+}
 
-  .stat-label {
+.stat-label {
     font-size: 16px;
     color: rgba(255, 255, 255, 0.9);
     font-weight: 600;
-  }
+}
 
-  /* Info Section with Cards (CRUD Only) */
-  .info-section {
+/* Info Section with Cards (CRUD Only) */
+.info-section {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
     border-radius: 30px;
     padding: 60px 40px;
     border: 2px solid rgba(255, 255, 255, 0.1);
-  }
+}
 
-  .admin-form {
+.admin-form {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
     padding: 40px;
     border-radius: 24px;
     margin-bottom: 50px;
-  }
+}
 
-  .form-title {
+.form-title {
     font-size: 24px;
     font-weight: 700;
     color: #1e293b;
     margin-bottom: 25px;
-  }
+}
 
-  .info-grid {
+.info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 25px;
-  }
+}
 
-  .info-card {
+.info-card {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
     padding: 30px;
     border-radius: 20px;
     border: 2px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s;
-  }
+}
 
-  .info-card:hover {
+.info-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     border-color: #667eea;
-  }
+}
 
-  .info-card h4 {
+.info-card h4 {
     color: #1e293b;
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 12px;
-  }
+}
 
-  .info-card p {
+.info-card p {
     color: #64748b;
     line-height: 1.7;
     margin-bottom: 20px;
-  }
+}
 
-  .actions {
+.actions {
     display: flex;
     gap: 10px;
-  }
+}
 
-  .btn {
+.btn {
     padding: 10px 20px;
     border: none;
     border-radius: 10px;
@@ -678,183 +801,279 @@
     font-weight: 600;
     font-size: 14px;
     transition: all 0.3s;
-  }
+}
 
-  .btn-edit {
+.btn-edit {
     background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
     color: white;
-  }
+}
 
-  .btn-edit:hover {
+.btn-edit:hover {
     transform: scale(1.05);
     box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
-  }
+}
 
-  .btn-delete {
+.btn-delete {
     background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
     color: white;
-  }
+}
 
-  .btn-delete:hover {
+.btn-delete:hover {
     transform: scale(1.05);
     box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
-  }
+}
 
-  .empty-state {
+.empty-state {
     text-align: center;
     padding: 80px 20px;
     color: rgba(255, 255, 255, 0.6);
-  }
+}
 
-  .empty-state p {
+.empty-state p {
     font-size: 18px;
     
-  }
+}
 
-  #infoList {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+#infoList {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .info-card {
-  width: 100%; /* atau ukuran grid kamu sebelumnya */
+    width: 100%; /* atau ukuran grid kamu sebelumnya */
 }
 
-
-
-  /* Contact Grid */
-  .contact-grid {
+/* Contact Grid */
+.contact-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
-  }
+}
 
-  .contact-item {
+.contact-item {
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
     padding: 25px;
     border-radius: 16px;
     border-left: 4px solid #667eea;
-  }
+}
 
-  .contact-icon {
+.contact-icon {
     font-size: 32px;
     margin-bottom: 12px;
-  }
+}
 
-  .contact-label {
+.contact-label {
     font-size: 14px;
     font-weight: 600;
     color: #64748b;
     margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 1px;
-  }
+}
 
-  .contact-value {
+.contact-value {
     font-size: 16px;
     font-weight: 600;
     color: #1e293b;
-  }
+}
 
-  /* Footer */
-  .footer {
+/* Footer */
+.footer {
     text-align: center;
     padding: 60px 20px;
     color: rgba(255, 255, 255, 0.8);
-  }
+}
 
-  .footer-text {
+.footer-text {
     font-size: 16px;
     margin-bottom: 10px;
-  }
+}
 
-  .footer-love {
+.footer-love {
     font-size: 14px;
     opacity: 0.7;
-  }
+}
 
-  .hidden {
+.hidden {
     display: none !important;
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .floating-header {
-      flex-direction: column;
-      padding: 20px;
-      gap: 15px;
-      width: 90%;
-      border-radius: 25px;
-    }
-
-    .nav-menu {
-      flex-direction: column;
-      gap: 10px;
-      text-align: center;
-    }
-
-    .user-section {
-      flex-direction: column;
-      padding-left: 0;
-      padding-top: 15px;
-      border-left: none;
-      border-top: 2px solid #e2e8f0;
-      width: 100%;
-    }
-
-    .hero-title {
-      font-size: 42px;
-    }
-
-    .hero-subtitle {
-      font-size: 18px;
-    }
-
-    .section-title {
-      font-size: 36px;
-    }
-
-    .two-column, .three-column {
-      grid-template-columns: 1fr;
-    }
-
-    .content-box {
-      padding: 30px;
-    }
-
-    .info-grid, .contact-grid, .feature-list {
-      grid-template-columns: 1fr;
-    }
-
-    .hero-buttons {
-      flex-direction: column;
-    }
-
-    .btn-primary, .btn-secondary {
-      width: 100%;
-    }
-  }
-
-  .floating-header img {
-  height: 50px;        /* ukuran bisa diubah 40–70px */
-  width: auto;         /* biar tidak gepeng */
-  border-radius: 6px;  /* opsional, biar sudutnya halus */
-  object-fit: cover;
 }
 
+/* --- VISI & MISI STYLES --- */
+/* (Gaya Visi Misi yang terakhir dan sudah diintegrasikan) */
 
-#home {
-    background-image: url('img/gedungs.jpg'); /* Ganti dengan path/URL gambar Anda */
-    background-size: cover; /* Memastikan gambar menutupi seluruh area section */
-    background-position: center; /* Memastikan gambar terpusat */
-    background-repeat: no-repeat; /* Mencegah gambar berulang */
-    /* Opsional: Tambahkan overlay gelap agar teks lebih mudah dibaca */
+/* --- 1. BASE: PALET WARNA & FONT --- */
+/* --- 1. BASE: PALET WARNA & FONT --- */
+
+#visi-misi {
+    /* Palet Warna Netral & Deep (Pertahankan untuk kartu) */
+    --color-primary: #1c315b;       
+    --color-secondary: #3c4043;     
+    --color-highlight: #ff6b6b;     
+    --color-card-bg: #ffffff;
+    
+    padding: 80px 5vw; 
+    /* --- PERUBAHAN UTAMA DI SINI --- */
+    background-color: transparent; /* Latar belakang section dihilangkan */
+    /* --- END PERUBAHAN UTAMA --- */
+    
+    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
+    color: var(--color-secondary);
+    line-height: 1.7;
+}
+
+/* --- 2. TATA LETAK VISI & MISI (Menggunakan Pembungkus Flexbox) --- */
+
+#visi-misi-flex-wrapper {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    gap: 40px; 
+    margin-bottom: 50px; 
+}
+
+/* Kartu Visi dan Misi: Pertahankan Latar Belakang Putih */
+#visi-misi-flex-wrapper > div { 
+    flex: 1; 
+    min-width: 300px; 
+    
+    padding: 35px;
+    background-color: var(--color-card-bg); /* TETAP PUTIH */
+    border-radius: 16px; 
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.03);
+    border-left: 5px solid var(--color-highlight); 
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+#visi-misi-flex-wrapper > div:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); 
+    transform: translateY(-3px);
+}
+
+/* --- 3. GAYA JUDUL (H1) --- */
+
+#visi-misi h1 {
+    font-size: 2em;
+    color: var(--color-primary); 
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    border-bottom: none; 
     position: relative;
-    z-index: 1; /* Penting untuk overlay */
 }
 
-/* Opsional: Tambahkan overlay gelap */
+#visi-misi h1::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 60px; 
+    height: 3px;
+    background-color: var(--color-highlight);
+    border-radius: 2px;
+}
+
+/* (Gaya Visi & Misi List tidak berubah) */
+.visi-container {
+    font-size: 1.15em;
+    font-weight: 400;
+    color: var(--color-secondary);
+    min-height: 100px; 
+}
+
+.misi-list {
+    list-style: none; 
+    padding: 0;
+    margin: 0;
+}
+
+.misi-list li {
+    margin-bottom: 15px;
+    padding: 12px 0;
+    font-size: 1em;
+    color: var(--color-secondary);
+    border-bottom: 1px solid #e5e5e5; 
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.misi-list li::before {
+    content: '✓'; 
+    color: var(--color-highlight);
+    font-size: 1.2em;
+    font-weight: bold;
+    flex-shrink: 0; 
+}
+
+.misi-list li:last-child {
+    border-bottom: none;
+}
+
+/* --- 4. NILAI LIST (Fokus pada Tata Letak Judul & Konten) --- */
+
+.nilai-list {
+    padding: 35px; /* Tambahkan padding ke container nilai-list */
+    background-color: var(--color-card-bg); /* Beri Latar Belakang Putih */
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.03); /* Beri bayangan */
+    color: var(--color-secondary);
+    text-align: center; 
+    /* Menggunakan Grid untuk konten Nilai */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    padding-top: 20px; 
+}
+
+/* Judul Nilai dipindahkan ke luar grid untuk tampilan yang bersih */
+.nilai-list::before {
+    content: "NILAI INTI PERUSAHAAN";
+    font-size: 2.2em;
+    color: var(--color-primary);
+    margin: 0 0 40px 0; /* Sesuaikan margin agar di atas kartu Nilai */
+    font-weight: 700;
+    letter-spacing: 2px;
+    display: block; 
+    text-align: center; 
+    /* Nilai ini tidak lagi menjadi bagian dari grid item, tapi header section Nilai */
+    grid-column: 1 / -1; 
+}
+
+/* --- 5. RESPONSIVITAS (Mobile) --- */
+
+@media (max-width: 767px) {
+    #visi-misi {
+        padding: 40px 5vw;
+    }
+
+    #visi-misi-flex-wrapper {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .nilai-list {
+        grid-template-columns: 1fr;
+    }
+
+    .nilai-list::before {
+        font-size: 1.5em;
+        margin-bottom: 25px;
+    }
+}
+
+/* --- HEADER IMAGE / HOME BACKGROUND --- */
+#home {
+    background-image: url('img/gedungs.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    position: relative;
+    z-index: 1; 
+}
+
 #home::before {
     content: "";
     position: absolute;
@@ -862,19 +1081,16 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4); /* Hitam dengan transparansi 40% */
+    background-color: rgba(0, 0, 0, 0.4); 
     z-index: 2;
 }
 
-/* Pastikan konten utama berada di atas overlay */
 .hero-content {
     position: relative;
     z-index: 3;
-    /* Anda mungkin perlu menyesuaikan warna teks menjadi putih/terang */
     color: white; 
 }
 
-/* Pastikan elemen lain (seperti judul, paragraf) juga berwarna terang */
 .hero-title, .hero-subtitle, .hero-badge {
     color: white;
 }
@@ -959,75 +1175,79 @@
         <p>Sejak didirikan pada tahun 1985, kami telah menghasilkan ribuan alumni yang sukses di berbagai bidang, baik di dalam maupun luar negeri. Prestasi kami tidak hanya dalam bidang akademik, tetapi juga dalam pembentukan karakter dan pengembangan soft skills yang dibutuhkan di abad 21.</p>
       </div>
 
-      <div class="stats-grid">
-        <div class="stat-box">
-          <div class="stat-number">40+</div>
-          <div class="stat-label">Tahun Pengalaman</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-number">1200+</div>
-          <div class="stat-label">Siswa Aktif</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-number">98%</div>
-          <div class="stat-label">Tingkat Kelulusan</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-number">150+</div>
-          <div class="stat-label">Prestasi Diraih</div>
-        </div>
-      </div>
+      <section id="statsSection" class="admin-form hidden">
+  <h3>Kelola Statistik Sekolah</h3>
+
+  <form id="statsForm" onsubmit="saveStats(event)">
+    <input type="hidden" id="statsId">
+
+    <label>Angka:</label>
+    <input type="text" id="statsAngka" placeholder="Contoh: 1200+" required>
+
+    <label>Label:</label>
+    <input type="text" id="statsLabel" placeholder="Contoh: Siswa Aktif" required>
+
+    <button type="submit">Simpan</button>
+  </form>
+
+  <div id="statsList"></div>
+</section>
+
+
+     <div class="stats-grid" id="statsUser"></div>
+
+
+
     </section>
 
     <!-- Visi Misi Section -->
-    <section class="section" id="visi-misi">
-      <div class="section-header">
-        <div class="section-badge">Visi & Misi</div>
-        <h2 class="section-title">Arah & Tujuan Kami</h2>
-        <p class="section-subtitle">Landasan filosofi yang menuntun setiap langkah kami dalam mencetak generasi unggul</p>
-      </div>
-      
-      <div class="content-box">
-        <h3>🎯 Visi Sekolah</h3>
-        <p style="font-size: 20px; font-weight: 600; color: #1e293b; font-style: italic; border-left: 4px solid #667eea; padding-left: 20px;">
-          "Menjadi sekolah unggul yang menghasilkan lulusan berakhlak mulia, berprestasi akademik tinggi, dan mampu bersaing di tingkat nasional maupun internasional pada tahun 2030"
-        </p>
-      </div>
+<section id="visiMisiAdmin" class="admin-form hidden">
+  <h3>Kelola Visi & Misi</h3>
+  
+  <form onsubmit="saveVisiMisi(event)">
+    <input type="hidden" id="vmId">
 
-      <div class="content-box">
-        <h3>🚀 Misi Sekolah</h3>
-        <ul>
-          <li><strong>Pendidikan Berkualitas:</strong> Menyelenggarakan pendidikan yang berkualitas dengan kurikulum yang relevan, inovatif, dan berorientasi pada kebutuhan masa depan</li>
-          <li><strong>Karakter Unggul:</strong> Membentuk peserta didik yang beriman, bertakwa, berakhlak mulia, dan memiliki nilai-nilai luhur bangsa Indonesia</li>
-          <li><strong>Prestasi Gemilang:</strong> Meningkatkan prestasi akademik dan non-akademik secara berkelanjutan di tingkat lokal, nasional, dan internasional</li>
-          <li><strong>Fasilitas Terbaik:</strong> Menyediakan sarana dan prasarana pendidikan yang memadai, modern, dan mendukung proses pembelajaran optimal</li>
-          <li><strong>Kolaborasi Global:</strong> Membangun kerjasama dengan berbagai institusi pendidikan dalam dan luar negeri untuk memperluas wawasan</li>
-          <li><strong>Pengembangan Berkelanjutan:</strong> Mengembangkan potensi siswa secara holistik melalui program akademik dan non-akademik yang terintegrasi</li>
-        </ul>
-      </div>
+    <label>Kategori:</label>
+    <select id="vmKategori">
+      <option value="visi">Visi</option>
+      <option value="misi">Misi</option>
+      <option value="nilai">Nilai</option>
+    </select>
 
-      <div class="content-box">
-        <h3>💎 Nilai-Nilai Utama</h3>
-        <div class="feature-list">
-          <div class="feature-item">
-            <h4>🙏 Integritas</h4>
-            <p>Jujur, bertanggung jawab, dan konsisten dalam setiap tindakan</p>
-          </div>
-          <div class="feature-item">
-            <h4>🤝 Kolaborasi</h4>
-            <p>Bekerja sama dan saling mendukung untuk mencapai tujuan bersama</p>
-          </div>
-          <div class="feature-item">
-            <h4>💡 Inovasi</h4>
-            <p>Kreatif, adaptif, dan selalu mencari solusi terbaik</p>
-          </div>
-          <div class="feature-item">
-            <h4>🎖️ Keunggulan</h4>
-            <p>Selalu memberikan yang terbaik dan terus meningkatkan kualitas</p>
-          </div>
+    <label>Judul:</label>
+    <input type="text" id="vmJudul" required>
+
+    <label>Deskripsi:</label>
+    <textarea id="vmDeskripsi" required></textarea>
+
+    <button type="submit" class="btn btn-save">Simpan</button>
+  </form>
+
+  <div id="vmList"></div>
+</section>
+
+
+<section id="visi-misi">
+    <div id="visi-misi-flex-wrapper"> 
+        <div>
+            <h1>Visi</h1>
+            <div class="visi-container">
+            </div>
         </div>
-      </div>
-    </section>
+        <div>
+            <h1>Misi</h1>
+            <ul class="misi-list">
+              
+            </ul>
+        </div>
+    </div>
+    <div class="nilai-list">
+    </div>
+</section>
+
+
+
+
 
     <!-- Profil Section -->
     <section class="section" id="profil">
@@ -1080,73 +1300,57 @@
         </div>
       </div>
 
-      <div class="content-box">
-        <h3>🏫 Fasilitas Unggulan</h3>
-        <div class="feature-list">
-          <div class="feature-item">
-            <h4>🏫 Ruang Kelas Modern</h4>
-            <p>36 ruang kelas ber-AC dengan proyektor, smart board, dan koneksi internet berkecepatan tinggi untuk pembelajaran digital</p>
-          </div>
-          <div class="feature-item">
-            <h4>🔬 Laboratorium Lengkap</h4>
-            <p>Lab Fisika, Kimia, Biologi, Komputer, Bahasa, dan Multimedia dengan peralatan modern dan standar internasional</p>
-          </div>
-          <div class="feature-item">
-            <h4>📚 Perpustakaan Digital</h4>
-            <p>Koleksi 15.000+ buku fisik, akses e-library dengan ribuan jurnal online, dan ruang baca nyaman dengan 100 seat</p>
-          </div>
-          <div class="feature-item">
-            <h4>⚽ Fasilitas Olahraga</h4>
-            <p>Lapangan basket, voli, futsal indoor, track lari 400m, kolam renang, dan fitness center dengan peralatan lengkap</p>
-          </div>
-          <div class="feature-item">
-            <h4>🎭 Aula & Auditorium</h4>
-            <p>Aula serbaguna berkapasitas 800 orang dengan sound system profesional, lighting canggih, dan stage modern</p>
-          </div>
-          <div class="feature-item">
-            <h4>🍽️ Kantin & Koperasi</h4>
-            <p>3 kantin bersih dengan menu sehat bergizi, food court modern, dan koperasi siswa dengan berbagai kebutuhan</p>
-          </div>
-          <div class="feature-item">
-            <h4>🏥 UKS & Konseling</h4>
-            <p>Ruang UKS dengan tenaga medis profesional, obat-obatan lengkap, dan ruang BK untuk konseling psikologi siswa</p>
-          </div>
-          <div class="feature-item">
-            <h4>🚗 Parkir & Keamanan</h4>
-            <p>Area parkir luas untuk mobil dan motor dengan sistem keamanan 24 jam, CCTV di seluruh area, dan petugas keamanan</p>
-          </div>
-          <div class="feature-item">
-            <h4>🕌 Mushola</h4>
-            <p>Mushola luas dan nyaman berkapasitas 300 jamaah dengan fasilitas wudhu modern, AC, dan sound system</p>
-          </div>
-          <div class="feature-item">
-            <h4>🌳 Taman & Area Hijau</h4>
-            <p>Taman hijau yang asri, area rekreasi outdoor, gazebo untuk diskusi, dan lingkungan sekolah yang nyaman</p>
-          </div>
-          <div class="feature-item">
-            <h4>💻 WiFi & IT Support</h4>
-            <p>WiFi gratis di seluruh area sekolah, server modern, dan tim IT yang siap membantu kebutuhan teknologi</p>
-          </div>
-          <div class="feature-item">
-            <h4>🎨 Ruang Seni & Kreativitas</h4>
-            <p>Studio musik, ruang seni rupa, ruang tari, dan berbagai fasilitas untuk mengembangkan bakat seni siswa</p>
-          </div>
-        </div>
-      </div>
+      <section id="fasilitasSection" class="admin-form hidden">
+  <h3>Kelola Fasilitas Unggulan</h3>
 
-      <div class="content-box">
-        <h3>🏆 Program Unggulan</h3>
-        <ul>
-          <li><strong>Kelas Akselerasi:</strong> Program khusus untuk siswa berbakat dengan kurikulum yang dipercepat dan diperdalam</li>
-          <li><strong>English & Mandarin Program:</strong> Pembelajaran bahasa asing intensif dengan native speaker</li>
-          <li><strong>Science & Technology Club:</strong> Penelitian dan eksperimen sains dengan bimbingan dosen universitas</li>
-          <li><strong>Olimpiade Training:</strong> Pembinaan khusus untuk siswa yang akan mengikuti kompetisi nasional dan internasional</li>
-          <li><strong>Leadership Development:</strong> Program pengembangan kepemimpinan melalui OSIS, MPK, dan organisasi siswa</li>
-          <li><strong>International Exchange:</strong> Program pertukaran pelajar ke berbagai negara seperti Jepang, Australia, dan Eropa</li>
-          <li><strong>Entrepreneurship Program:</strong> Pelatihan kewirausahaan dan business plan competition</li>
-          <li><strong>Community Service:</strong> Program pengabdian masyarakat dan social project untuk membangun empati sosial</li>
-        </ul>
-      </div>
+  <form onsubmit="saveFasilitas(event)">
+    <input type="hidden" id="fasId">
+
+    <label>Nama Fasilitas:</label>
+    <input type="text" id="fasNama" required>
+
+    <label>Deskripsi:</label>
+    <textarea id="fasDeskripsi" required></textarea>
+
+    <button type="submit" class="btn btn-save">Simpan</button>
+  </form>
+
+  <div id="fasList"></div>
+</section>
+
+<div class="content-box">
+  <h3>🏫 Fasilitas Unggulan</h3>
+  <div id="fasilitasUser" class="feature-list"></div>
+</div>
+
+      
+<section id="programSection" class="admin-form hidden">
+  <h3>Kelola Program Unggulan</h3>
+
+  <form onsubmit="saveProgram(event)">
+    <input type="hidden" id="programId">
+
+    <label>Nama Program:</label>
+    <input type="text" id="programNama" required>
+
+    <label>Deskripsi:</label>
+    <textarea id="programDeskripsi" required></textarea>
+
+    <button type="submit">Simpan</button>
+  </form>
+
+  <div id="programList"></div>
+</section>
+
+
+    <div class="content-box">
+  <h3>🏆 Program Unggulan</h3>
+
+  <!-- GANTI UL STATIC MENJADI INI -->
+  <ul id="programUser"></ul>
+</div>
+
+
     </section>
 
     <!-- Informasi Section with CRUD -->
@@ -1187,41 +1391,30 @@
         <p class="section-subtitle">Kami siap membantu Anda, jangan ragu untuk menghubungi kami</p>
       </div>
 
+      <section id="kontakSection" class="admin-form hidden">
+  <h3>Kelola Kontak</h3>
+
+  <form onsubmit="saveKontak(event)">
+    <input type="hidden" id="kontakId">
+
+    <label>Label Kontak:</label>
+    <input type="text" id="kontakLabel" required placeholder="Contoh: WhatsApp">
+
+    <label>Isi Kontak:</label>
+    <textarea id="kontakNilai" required></textarea>
+
+    <button type="submit" class="btn btn-save">Simpan</button>
+  </form>
+
+  <div id="kontakList"></div>
+</section>
+
+
       <div class="content-box">
-        <h3>📞 Kontak Utama</h3>
-        <div class="contact-grid">
-          <div class="contact-item">
-            <div class="contact-icon">📍</div>
-            <div class="contact-label">Alamat</div>
-            <div class="contact-value">Jl. Pendidikan No. 123<br>Kota Unggulan<br>Indonesia 12345</div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">📞</div>
-            <div class="contact-label">Telepon</div>
-            <div class="contact-value">(021) 1234-5678</div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">📱</div>
-            <div class="contact-label">WhatsApp</div>
-            <div class="contact-value">0812-3456-7890</div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">✉️</div>
-            <div class="contact-label">Email</div>
-            <div class="contact-value">info@sman1unggulan.sch.id</div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">🌐</div>
-            <div class="contact-label">Website</div>
-            <div class="contact-value">www.sman1unggulan.sch.id</div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">📠</div>
-            <div class="contact-label">Fax</div>
-            <div class="contact-value">(021) 1234-5679</div>
-          </div>
-        </div>
-      </div>
+  <h3>📞 Kontak Utama</h3>
+  <div class="contact-grid" id="kontakUser"></div>
+</div>
+
 
       <div class="content-box">
         <h3>🕐 Jam Operasional</h3>
@@ -1241,42 +1434,40 @@
         </div>
       </div>
 
-      <div class="content-box">
-        <h3>📱 Media Sosial</h3>
-        <p style="margin-bottom: 20px;">Ikuti kami di media sosial untuk mendapatkan update terbaru, informasi kegiatan sekolah, dan konten menarik lainnya!</p>
-        <div class="contact-grid">
-          <div class="contact-item">
-            <div class="contact-icon">📘</div>
-            <div class="contact-label">Facebook</div>
-            <div class="contact-value">SMAN 1 Dramaga Official</div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">📸</div>
-            <div class="contact-label">Instagram</div>
-            <div class="contact-value">@sman1dramaga</div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">🐦</div>
-            <div class="contact-label">Twitter</div>
-            <div class="contact-value">@SMAN1Dramaga</div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">▶️</div>
-            <div class="contact-label">YouTube</div>
-            <div class="contact-value">SMAN 1 Dramaga Channel</div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">💼</div>
-            <div class="contact-label">LinkedIn</div>
-            <div class="contact-value">SMA Negeri 1 Dramaga</div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">🎵</div>
-            <div class="contact-label">TikTok</div>
-            <div class="contact-value">@sman1dramaga</div>
-          </div>
-        </div>
-      </div>
+
+
+<section id="sosmedSection" class="admin-form hidden">
+  <h3>Kelola Media Sosial</h3>
+
+  <form id="sosmedForm" onsubmit="saveSosmed(event)">
+    <input type="hidden" id="sosmedId">
+
+    <label>Nama Platform:</label>
+    <input type="text" id="sosmedNama" placeholder="Contoh: Instagram" required>
+
+    <label>Icon (Emoji):</label>
+    <input type="text" id="sosmedIcon" placeholder="Contoh: 📸" required>
+
+    <label>Username / Link:</label>
+    <input type="text" id="sosmedNilai" placeholder="@sman1dramaga" required>
+
+    <button type="submit">Simpan</button>
+  </form>
+
+  <div id="sosmedList"></div>
+</section>
+
+<div id="sosmedList"></div>
+
+
+     <div class="content-box">
+  <h3>📱 Media Sosial</h3>
+  <p style="margin-bottom: 20px;">Ikuti kami di media sosial untuk mendapatkan update terbaru, informasi kegiatan sekolah, dan konten menarik!</p>
+
+  <!-- DATA DARI SUPABASE MASUK KE SINI -->
+  <div id="sosmedUser" class="contact-grid"></div>
+</div>
+
 
       <div class="content-box">
         <h3>🗺️ Lokasi & Akses</h3>
@@ -1295,7 +1486,7 @@
   <!-- Footer -->
   <footer class="footer">
     <p class="footer-text">© 2025 SMA Negeri 1 Dramaga Unggulan. All Rights Reserved.</p>
-    <p class="footer-love">Made with ❤️ for Education Excellence</p>
+    <p class="footer-love">Made with ❤️ Heni Ramadhani</p>
   </footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -1316,6 +1507,7 @@
 
   let isAdmin = false;
   let infos = [];
+  let vmData = []; // ← untuk visi-misi
 
 
   // ====== SHOW ADMIN LOGIN ======
@@ -1350,7 +1542,7 @@
   }
 
 
-  // ====== LOAD DATA ======
+  // ====== LOAD INFORMASI ======
   async function loadInfos() {
     let { data, error } = await db
       .from("infos")
@@ -1366,8 +1558,7 @@
     renderInfo();
   }
 
-
-  // ====== SAVE INFO ======
+  // ====== SAVE INFORMASI ======
  async function saveInfo(e) {
   e.preventDefault();
 
@@ -1400,20 +1591,16 @@
   alert("✅ Informasi berhasil disimpan!");
 }
 
-
-  // ====== DELETE INFO ======
+  // ====== DELETE INFORMASI ======
   async function deleteInfo(id) {
     if (!isAdmin) return;
     if (!confirm("Yakin hapus?")) return;
-
     await db.from("infos").delete().eq("id", id);
-
     loadInfos();
     alert("✅ Dihapus!");
   }
 
-
-  // ====== RENDER LIST ======
+  // ====== RENDER LIST INFORMASI ======
   function renderInfo() {
     const list = document.getElementById('infoList');
     list.innerHTML = '';
@@ -1424,9 +1611,6 @@
       list.innerHTML = `<div class="empty-state"><p>Belum ada informasi</p></div>`;
       return;
     }
-
-    list.style.display = "";
-    list.style.justifyContent = "";
 
     infos.forEach(info => {
       const div = document.createElement('div');
@@ -1448,30 +1632,717 @@
   // ====== EDIT INFO ======
   function editInfo(id) {
     const info = infos.find(i => i.id == id);
-
     document.getElementById('infoId').value = info.id;
     document.getElementById('judul').value = info.judul;
     document.getElementById('deskripsi').value = info.deskripsi;
-
-    document.querySelector('.admin-form').scrollIntoView({ behavior: 'smooth' });
   }
 
 
-  // ====== UI ADMIN ======
+
+  /* ============================================================
+     ==================   VISI – MISI  ==========================
+     ============================================================ */
+
+  // ===== LOAD VISI MISI =====
+  async function loadVisiMisi() {
+    let { data, error } = await db
+      .from("visimisi")
+      .select("*")
+      .order("id", { ascending: false });
+
+    if (error) return console.error(error);
+
+    vmData = data;
+    renderVisiMisi();
+  }
+
+  // ===== RENDER LIST ADMIN VISI MISI =====
+  function renderVisiMisi() {
+    const container = document.getElementById("vmList");
+    if (!container) return;
+    container.innerHTML = "";
+
+    vmData.forEach(vm => {
+      const div = document.createElement("div");
+      div.classList.add("info-card");
+      div.innerHTML = `
+        <h4>[${vm.kategori.toUpperCase()}] ${vm.judul}</h4>
+        <p>${vm.deskripsi}</p>
+        ${isAdmin ? `
+          <button onclick="editVisiMisi(${vm.id})">✏️ Edit</button>
+          <button onclick="deleteVisiMisi(${vm.id})">🗑️ Hapus</button>
+        ` : ""}
+      `;
+      container.appendChild(div);
+    });
+
+    renderVisiMisiToWebsite();
+  }
+
+  // ====== SAVE VISI MISI ======
+  async function saveVisiMisi(e) {
+    e.preventDefault();
+
+    if (!isAdmin) return alert("❌ Hanya admin!");
+
+    const id = document.getElementById("vmId").value;
+    const kategori = document.getElementById("vmKategori").value;
+    const judul = document.getElementById("vmJudul").value;
+    const deskripsi = document.getElementById("vmDeskripsi").value;
+
+    let result;
+    if (id) {
+      result = await db.from("visimisi").update({
+        kategori, judul, deskripsi
+      }).eq("id", id);
+    } else {
+      result = await db.from("visimisi").insert([{
+        kategori, judul, deskripsi
+      }]);
+    }
+
+    if (result.error) alert("Gagal menyimpan!");
+
+    document.getElementById("vmId").value = "";
+    e.target.reset();
+    loadVisiMisi();
+  }
+
+  // ====== EDIT VISI MISI ======
+  function editVisiMisi(id) {
+    const vm = vmData.find(i => i.id == id);
+
+    document.getElementById("vmId").value = vm.id;
+    document.getElementById("vmKategori").value = vm.kategori;
+    document.getElementById("vmJudul").value = vm.judul;
+    document.getElementById("vmDeskripsi").value = vm.deskripsi;
+  }
+
+  // ====== DELETE VISI MISI ======
+  async function deleteVisiMisi(id) {
+    if (!confirm("Yakin hapus?")) return;
+    await db.from("visimisi").delete().eq("id", id);
+    loadVisiMisi();
+  }
+
+
+  /* ====== RENDER KE HALAMAN UTAMA WEBSITE ====== */
+  function renderVisiMisiToWebsite() {
+
+    // VISI
+    const visi = vmData.filter(v => v.kategori === "visi");
+    const visiDOM = document.querySelector("#visi-misi .visi-container");
+    if (visiDOM) {
+      visiDOM.innerHTML = visi.map(v =>
+        `<p class="visi-item">"${v.deskripsi}"</p>`
+      ).join("");
+    }
+
+    // MISI
+    const misi = vmData.filter(v => v.kategori === "misi");
+    const misiDOM = document.querySelector("#visi-misi .misi-list");
+    if (misiDOM) {
+      misiDOM.innerHTML = misi.map(v =>
+        `<li>${v.deskripsi}</li>`
+      ).join("");
+    }
+
+    // NILAI
+    const nilai = vmData.filter(v => v.kategori === "nilai");
+    const nilaiDOM = document.querySelector("#visi-misi .nilai-list");
+    if (nilaiDOM) {
+      nilaiDOM.innerHTML = nilai.map(v => `
+        <div class="feature-item">
+          <h4>${v.judul}</h4>
+          <p>${v.deskripsi}</p>
+        </div>
+      `).join("");
+    }
+  }
+
+
+
+    // ====== UI ADMIN ======
   function updateUIForAdmin() {
     document.getElementById('adminSection').classList.remove('hidden');
+    document.getElementById('visiMisiAdmin').classList.remove('hidden');
+
+    // FIX: buka form fasilitas saat admin login
+    const fasSection = document.getElementById('fasilitasSection');
+    if (fasSection) fasSection.classList.remove('hidden');
+
+      const programSection = document.getElementById('programSection');
+    if (programSection) programSection.classList.remove('hidden');
+
+    const kontakSection = document.getElementById('kontakSection'); 
+    if (kontakSection) kontakSection.classList.remove('hidden');
+
+    const sosmedSection = document.getElementById('sosmedSection');
+    if (sosmedSection) sosmedSection.classList.remove('hidden');
+
+    const statsSection = document.getElementById('statsSection');
+    if (statsSection) statsSection.classList.remove('hidden');
+    
+
     loadInfos();
+    loadVisiMisi();
+    loadFasilitas(); // pastikan juga dipanggil
+    loadProgram();
+    loadKontak();
+    loadSosmed();
+    loadStats();
   }
 
   function updateUIForGuest() {
     document.getElementById('adminSection').classList.add('hidden');
+    document.getElementById('visiMisiAdmin').classList.add('hidden');
+
+    // FIX: sembunyikan form fasilitas jika keluar admin
+    const fasSection = document.getElementById('fasilitasSection');
+    if (fasSection) fasSection.classList.add('hidden');
+
+    const programSection = document.getElementById('programSection');
+    if (programSection) programSection.classList.add('hidden');
+
+    const kontakSection = document.getElementById('kontakSection');
+    if (kontakSection) kontakSection.classList.add('hidden');
+
+    const sosmedSection = document.getElementById('sosmedSection');
+    if (sosmedSection) sosmedSection.classList.add('hidden');
+
+    const statsSection = document.getElementById('statsSection');
+    if (statsSection) statsSection.classList.add('hidden');
+
     loadInfos();
+    loadVisiMisi();
+    loadFasilitas();
+    loadProgram();
+    loadKontak();
+    loadSosmed();
+    loadStats();
   }
 
-  // INIT
-  loadInfos();
+
+  let fasData = [];
+
+  /* ============================================================
+    ===================== FASILITAS ============================
+    ============================================================ */
+
+  // LOAD FASILITAS
+  async function loadFasilitas() {
+    let { data, error } = await db
+      .from("fasilitas")
+      .select("*")
+      .order("id", { ascending: false });
+
+    if (error) return console.error(error);
+
+    fasData = data;
+    renderFasilitasAdmin();
+    renderFasilitasUser();
+  }
+
+  // RENDER LIST ADMIN
+  function renderFasilitasAdmin() {
+    const container = document.getElementById("fasList");
+    if (!container) return;
+    container.innerHTML = "";
+
+    fasData.forEach(f => {
+      const div = document.createElement("div");
+      div.classList.add("info-card");
+      div.innerHTML = `
+        <h4>${f.nama}</h4>
+        <p>${f.deskripsi}</p>
+        ${isAdmin ? `
+          <button onclick="editFasilitas(${f.id})">✏️ Edit</button>
+          <button onclick="deleteFasilitas(${f.id})">🗑️ Hapus</button>
+        ` : ""}
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  // RENDER UNTUK USER
+  function renderFasilitasUser() {
+    const container = document.getElementById("fasilitasUser");
+    if (!container) return;
+
+    container.innerHTML = fasData.map(f => `
+      <div class="feature-item">
+        <h4>${f.nama}</h4>
+        <p>${f.deskripsi}</p>
+      </div>
+    `).join("");
+  }
+
+  // SIMPAN / UPDATE
+  async function saveFasilitas(e) {
+    e.preventDefault();
+
+    if (!isAdmin) return alert("❌ Hanya admin!");
+
+    const id = document.getElementById("fasId").value;
+    const nama = document.getElementById("fasNama").value;
+    const deskripsi = document.getElementById("fasDeskripsi").value;
+
+    let result;
+    if (id) {
+      result = await db.from("fasilitas").update({ nama, deskripsi }).eq("id", id);
+    } else {
+      result = await db.from("fasilitas").insert([{ nama, deskripsi }]);
+    }
+
+    if (result.error) return alert("Gagal menyimpan!");
+
+    e.target.reset();
+    document.getElementById("fasId").value = "";
+    loadFasilitas();
+  }
+
+  // EDIT
+  function editFasilitas(id) {
+    const f = fasData.find(i => i.id == id);
+
+    document.getElementById("fasId").value = f.id;
+    document.getElementById("fasNama").value = f.nama;
+    document.getElementById("fasDeskripsi").value = f.deskripsi;
+  }
+
+  // DELETE
+  async function deleteFasilitas(id) {
+    if (!confirm("Yakin hapus?")) return;
+
+    await db.from("fasilitas").delete().eq("id", id);
+    loadFasilitas();
+  }
+  /* ============================================================
+    ===================== PROGRAM UNGGULAN =====================
+    ============================================================ */
+let programData = [];
+
+// LOAD PROGRAM
+async function loadProgram() {
+  let { data, error } = await db
+    .from("program_unggulan")   // ← ganti ini
+    .select("*")
+    .order("id", { ascending: false });
+
+  if (error) return console.error(error);
+
+  programData = data;
+
+  renderProgramAdmin();
+  renderProgramUser();
+}
+
+/* ====== RENDER DI ADMIN ====== */
+function renderProgramAdmin() {
+  const container = document.getElementById("programList");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  programData.forEach(p => {
+    const div = document.createElement("div");
+    div.classList.add("info-card");
+
+    div.innerHTML = `
+      <h4>${p.nama}</h4>
+      <p>${p.deskripsi}</p>
+
+      ${isAdmin ? `
+        <button onclick="editProgram(${p.id})">✏️ Edit</button>
+        <button onclick="deleteProgram(${p.id})">🗑️ Hapus</button>
+      ` : ""}
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+/* ====== RENDER UNTUK USER ====== */
+function renderProgramUser() {
+  const container = document.getElementById("programUser");
+  if (!container) return;
+
+  container.innerHTML = programData
+    .map(p => `<li><strong>${p.nama}:</strong> ${p.deskripsi}</li>`)
+    .join("");
+}
+
+/* ====== SIMPAN / UPDATE ====== */
+async function saveProgram(e) {
+  e.preventDefault();
+
+  if (!isAdmin) return alert("❌ Hanya admin!");
+
+  const id = document.getElementById("programId").value;
+  const nama = document.getElementById("programNama").value;
+  const deskripsi = document.getElementById("programDeskripsi").value;
+
+  let result;
+  if (id) {
+    result = await db
+      .from("program_unggulan")    // ← ganti ini
+      .update({ nama, deskripsi })
+      .eq("id", id);
+  } else {
+    result = await db
+      .from("program_unggulan")    // ← ganti ini
+      .insert([{ nama, deskripsi }]);
+  }
+
+  if (result.error) return alert("Gagal menyimpan!");
+
+  e.target.reset();
+  document.getElementById("programId").value = "";
+
+  loadProgram();
+}
+
+/* ====== EDIT ====== */
+function editProgram(id) {
+  const p = programData.find(i => i.id == id);
+
+  document.getElementById("programId").value = p.id;
+  document.getElementById("programNama").value = p.nama;
+  document.getElementById("programDeskripsi").value = p.deskripsi;
+}
+
+/* ====== DELETE ====== */
+async function deleteProgram(id) {
+  if (!confirm("Yakin hapus?")) return;
+
+  await db
+    .from("program_unggulan")    // ← ganti ini
+    .delete()
+    .eq("id", id);
+
+  loadProgram();
+}
+
+
+/* ============================================================
+   ========================= KONTAK ============================
+   ============================================================ */
+
+let kontakData = [];
+
+// LOAD
+async function loadKontak() {
+  let { data, error } = await db
+    .from("kontak")
+    .select("*")
+    .order("urutan", { ascending: true });
+
+  if (error) return console.error(error);
+
+  kontakData = data;
+  renderKontakAdmin();
+  renderKontakUser();
+}
+
+/* ========== RENDER ADMIN ========== */
+function renderKontakAdmin() {
+  const container = document.getElementById("kontakList");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  kontakData.forEach(k => {
+    const div = document.createElement("div");
+    div.classList.add("info-card");
+
+    div.innerHTML = `
+      <h4>${k.label}</h4>
+      <p>${k.nilai}</p>
+
+      ${isAdmin ? `
+        <button onclick="editKontak(${k.id})">✏️ Edit</button>
+        <button onclick="deleteKontak(${k.id})">🗑️ Hapus</button>
+      ` : ""}
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+/* ========== RENDER USER ========== */
+function renderKontakUser() {
+  const container = document.getElementById("kontakUser");
+  if (!container) return;
+
+  container.innerHTML = kontakData.map(k => `
+    <div class="contact-item">
+      <div class="contact-label">${k.label}</div>
+      <div class="contact-value">${k.nilai.replace(/\n/g, "<br>")}</div>
+    </div>
+  `).join("");
+}
+
+/* ========== SIMPAN ========== */
+async function saveKontak(e) {
+  e.preventDefault();
+
+  if (!isAdmin) return alert("❌ Hanya admin!");
+
+  const id = document.getElementById("kontakId").value;
+  const label = document.getElementById("kontakLabel").value;
+  const nilai = document.getElementById("kontakNilai").value;
+
+  let result;
+  if (id) {
+    result = await db.from("kontak")
+      .update({ label, nilai })
+      .eq("id", id);
+  } else {
+    result = await db.from("kontak")
+      .insert([{ label, nilai }]);
+  }
+
+  if (result.error) return alert("Gagal menyimpan!");
+
+  e.target.reset();
+  document.getElementById("kontakId").value = "";
+  loadKontak();
+}
+
+/* ========== EDIT ========== */
+function editKontak(id) {
+  const k = kontakData.find(i => i.id == id);
+
+  document.getElementById("kontakId").value = k.id;
+  document.getElementById("kontakLabel").value = k.label;
+  document.getElementById("kontakNilai").value = k.nilai;
+}
+
+/* ========== DELETE ========== */
+async function deleteKontak(id) {
+  if (!confirm("Yakin hapus?")) return;
+
+  await db.from("kontak").delete().eq("id", id);
+  loadKontak();
+}
+
+
+let sosmedData = [];
+
+// LOAD DATA
+async function loadSosmed() {
+  let { data, error } = await db
+    .from("sosialmedia")
+    .select("*")
+    .order("id", { ascending: false });
+
+  if (error) return console.error(error);
+
+  sosmedData = data;
+  renderSosmedAdmin();
+  renderSosmedUser();
+}
+
+
+/* ========== RENDER ADMIN ========== */
+function renderSosmedAdmin() {
+  const container = document.getElementById("sosmedList");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  sosmedData.forEach(s => {
+    const div = document.createElement("div");
+    div.classList.add("info-card");
+
+    div.innerHTML = `
+      <strong>${s.icon} ${s.nama}</strong><br>
+      ${s.nilai}
+      <br>
+      ${isAdmin ? `
+        <button onclick="editSosmed(${s.id})">✏️ Edit</button>
+        <button onclick="deleteSosmed(${s.id})">🗑️ Hapus</button>
+      ` : ""}
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+
+/* ========== RENDER USER ========== */
+function renderSosmedUser() {
+  const container = document.getElementById("sosmedUser");
+  if (!container) return;
+
+  container.innerHTML = sosmedData.map(s => `
+    <div class="contact-item">
+      <div class="contact-icon">${s.icon}</div>
+      <div class="contact-label">${s.nama}</div>
+      <div class="contact-value">${s.nilai}</div>
+    </div>
+  `).join("");
+}
+
+
+/* ========== SIMPAN / UPDATE ========== */
+async function saveSosmed(e) {
+  e.preventDefault();
+
+  if (!isAdmin) return alert("❌ Hanya admin!");
+
+  const id = document.getElementById("sosmedId").value;
+  const nama = document.getElementById("sosmedNama").value;
+  const icon = document.getElementById("sosmedIcon").value;
+  const nilai = document.getElementById("sosmedNilai").value;
+
+  let result;
+
+  if (id) {
+    result = await db.from("sosialmedia")
+      .update({ nama, icon, nilai })
+      .eq("id", id);
+  } else {
+    result = await db.from("sosialmedia")
+      .insert([{ nama, icon, nilai }]);
+  }
+
+  if (result.error) return alert("Gagal menyimpan!");
+
+  e.target.reset();
+  document.getElementById("sosmedId").value = "";
+
+  loadSosmed();
+}
+
+
+/* ========== EDIT ========== */
+function editSosmed(id) {
+  const s = sosmedData.find(i => i.id == id);
+
+  document.getElementById("sosmedId").value = s.id;
+  document.getElementById("sosmedNama").value = s.nama;
+  document.getElementById("sosmedIcon").value = s.icon;
+  document.getElementById("sosmedNilai").value = s.nilai;
+}
+
+
+/* ========== DELETE ========== */
+async function deleteSosmed(id) {
+  if (!confirm("Yakin hapus?")) return;
+
+  await db.from("sosialmedia")
+    .delete()
+    .eq("id", id);
+
+  loadSosmed();
+}
+
+
+let statsData = [];
+
+/* ========= LOAD ========= */
+async function loadStats() {
+  let { data, error } = await db
+    .from("stats")
+    .select("*")
+    .order("id", { ascending: true });
+
+  if (error) return console.error(error);
+
+  statsData = data;
+  renderStatsAdmin();
+  renderStatsUser();
+}
+
+/* ========= RENDER ADMIN ========= */
+function renderStatsAdmin() {
+  const container = document.getElementById("statsList");
+  if (!container) return;
+
+  container.innerHTML = statsData.map(s => `
+    <div class="info-card">
+      <h4>${s.angka}</h4>
+      <p>${s.label}</p>
+
+      ${isAdmin ? `
+        <button onclick="editStats(${s.id})">✏️ Edit</button>
+        <button onclick="deleteStats(${s.id})">🗑️ Hapus</button>
+      ` : ""}
+    </div>
+  `).join("");
+}
+
+/* ========= RENDER USER ========= */
+function renderStatsUser() {
+  const container = document.getElementById("statsUser");
+  if (!container) return;
+
+  container.innerHTML = statsData.map(s => `
+    <div class="stat-box">
+      <div class="stat-number">${s.angka}</div>
+      <div class="stat-label">${s.label}</div>
+    </div>
+  `).join("");
+}
+
+/* ========= SIMPAN / UPDATE ========= */
+async function saveStats(e) {
+  e.preventDefault();
+
+  if (!isAdmin) return alert("❌ Hanya admin!");
+
+  const id = document.getElementById("statsId").value;
+  const angka = document.getElementById("statsAngka").value;
+  const label = document.getElementById("statsLabel").value;
+
+  let result;
+  if (id) {
+    result = await db.from("stats")
+      .update({ angka, label })
+      .eq("id", id);
+  } else {
+    result = await db.from("stats")
+      .insert([{ angka, label }]);
+  }
+
+  if (result.error) return alert("Gagal menyimpan!");
+
+  e.target.reset();
+  document.getElementById("statsId").value = "";
+  loadStats();
+}
+
+/* ========= EDIT ========= */
+function editStats(id) {
+  const s = statsData.find(i => i.id == id);
+  document.getElementById("statsId").value = s.id;
+  document.getElementById("statsAngka").value = s.angka;
+  document.getElementById("statsLabel").value = s.label;
+}
+
+/* ========= DELETE ========= */
+async function deleteStats(id) {
+  if (!confirm("Yakin hapus?")) return;
+
+  await db.from("stats").delete().eq("id", id);
+  loadStats();
+}
+
+
+
+
+    // INIT (jalan pertama kali)
+    loadInfos();
+    loadVisiMisi();
+    loadFasilitas();  
+    loadProgram(); 
+    loadKontak();
+    loadSosmed();
+    loadStats();
 
 </script>
+
 
 
 </body>
